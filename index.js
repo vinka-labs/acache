@@ -63,6 +63,19 @@ exports.create = (afun, ttl) => {
         }
     };
 
+    // in tests, you might want to reset the cache..
+    if (process.env.NODE_ENV === 'test') {
+        that.reset = function () {
+            if (timer) {
+                clearTimeout(timer);
+            }
+            promises.length = 0;
+            cached = null;
+            loading = false;
+            timer = null;
+        };
+    }
+
     return that;
 };
 
