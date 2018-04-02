@@ -28,7 +28,7 @@ exports.create = (afun, ttl) => {
     };
 
     const that = {
-        get() {
+        get(...params) {
             if (cached) {
                 // cache hit
                 return Promise.resolve(cached);
@@ -41,7 +41,7 @@ exports.create = (afun, ttl) => {
             if (!loading) {
                 // cache miss -> execute afun()
                 loading = true;
-                afun()
+                afun(...params)
                 .then(result => {
                     cached = result;
                     loading = false;

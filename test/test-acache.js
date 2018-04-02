@@ -59,6 +59,14 @@ lab.experiment('ACache', () => {
             expect(spy.callCount).to.be.equal(1);
         });
     });
+
+    lab.test('Fun parameters', async () => {
+        const spy = sinon.spy(afun);
+        const cache = acache.create(spy, 20);
+        let result = await cache.get(1, 2, 3);
+        expect(result).to.be.equal({a: 1, b: 2});
+        expect(spy.calledOnceWith(1, 2, 3)).to.be.true();
+    });
 });
 
 //
